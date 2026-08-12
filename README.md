@@ -17,9 +17,6 @@ independently generated GNS3/Zeek traffic.
 | 6.0 Explainability and severity | Mst Sinha Naznin | Fixture available |
 | 7.0 Virtual network and traffic | Arjita Saha | Draft feature map available |
 
-Data engineering is running roughly three weeks ahead of the work
-distribution schedule. The processed sample due to the model lead in the
-10–14 August week is available now.
 
 ## Quick start
 
@@ -34,8 +31,6 @@ python src/build_pipeline.py --data-dir data/raw
 python src/sanity_check.py
 python src/shift_analysis.py
 ```
-
-Run in order. Each step consumes the previous step's output.
 
 ## Repository layout
 
