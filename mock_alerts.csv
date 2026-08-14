@@ -1,0 +1,5 @@
+source_ip,destination_ip,anomaly_score,severity,explanation
+192.168.1.10,192.168.1.20,0.20,Low,Synthetic example of a normal-looking traffic pattern
+192.168.1.30,192.168.1.40,0.55,Medium,Synthetic example of repeated connection attempts
+192.168.1.50,192.168.1.60,0.78,High,Synthetic example of unusually high data transfer
+192.168.1.70,192.168.1.80,0.92,Critical,Synthetic example of highly unusual network activity
