@@ -8,20 +8,11 @@ The laboratory is designed to generate normal and controlled anomalous network t
 
 ## Topology
 
-```text
-                         Ubuntu-client
-                       192.168.10.10
-                              |
-                              |
-                              |
-Kali-attacker  -----------   Hub1   -----------  Ubuntu-server
-192.168.10.30                                  192.168.10.20
-                              |
-                              |
-                              |
-                         Zeek-sensor
-                       Passive Monitor
-```
+<p align="center">
+  <img src="final_connecting_from_gns3.png" alt="Final Four-Role GNS3 Topology" width="850">
+</p>
+
+**Figure 1: Final four-role GNS3 laboratory topology**
 
 All four systems are connected to the same isolated GNS3 Ethernet Hub.
 
@@ -270,22 +261,6 @@ This design helps ensure that all testing is restricted to the authorised projec
 
 ---
 
-## Topology Screenshot
-
-The screenshot of the implemented GNS3 topology is stored in this directory as:
-
-`four_role_topology.png`
-
-Expected folder structure:
-
-```text
-gns3/
-└── topology/
-    ├── topology.md
-    └── four_role_topology.png
-```
-
----
 
 ## Implementation Purpose
 
