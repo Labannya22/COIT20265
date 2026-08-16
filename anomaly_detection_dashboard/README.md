@@ -24,7 +24,7 @@ The `data/model_outputs` folder contains:
 
 The Hybrid results include Isolation Forest scores, Autoencoder scores, model statuses, model agreement, Hybrid scores, threshold decisions and evaluation results.
 
-## Installation
+## Installation.
 
 Create and activate a Python virtual environment, then install the required packages:
 
