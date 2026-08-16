@@ -1,0 +1,15 @@
+{
+  "model": "Hybrid Isolation Forest + Dense Autoencoder",
+  "status": "candidate",
+  "normalisation": "empirical percentile using normal validation scores",
+  "isolation_forest_weight": 0.5,
+  "autoencoder_weight": 0.5,
+  "random_seed": 42,
+  "roc_auc": 0.876671,
+  "pr_auc": 0.905663,
+  "thresholds": {
+    "0.5% budget": 0.990994,
+    "1% budget": 0.980082,
+    "3% budget": 0.938938
+  }
+}

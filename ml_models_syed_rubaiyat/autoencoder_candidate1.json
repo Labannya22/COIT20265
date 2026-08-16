@@ -1,0 +1,25 @@
+{
+  "model": "Dense Autoencoder",
+  "status": "candidate",
+  "training_data": "train_normal.npz",
+  "validation_data": "val_normal.npz",
+  "test_data": "test_full.npz",
+  "input_features": 41,
+  "architecture": [41, 32, 16, 8, 16, 32, 41],
+  "bottleneck": 8,
+  "hidden_activation": "relu",
+  "output_activation": "linear",
+  "loss": "mean_squared_error",
+  "optimizer": "Adam",
+  "initial_learning_rate": 0.001,
+  "batch_size": 256,
+  "maximum_epochs": 100,
+  "random_seed": 42,
+  "roc_auc": 0.878460,
+  "pr_auc": 0.901098,
+  "thresholds": {
+    "0.5% budget": 0.04577401,
+    "1% budget": 0.03646767,
+    "3% budget": 0.02375446
+  }
+}
