@@ -12,7 +12,7 @@ This Streamlit dashboard presents the outputs of an explainable, false-positive-
 * `app_hybrid.py` — Combined Isolation Forest and Autoencoder results.
 * `app_hybrid_sqlite.py` — Final Hybrid dashboard loading alert records from SQLite.
 * `database.py` — Creates the SQLite database from the Hybrid model-output CSV.
-* `alerts.db` — Local SQLite database containing the `hybrid_alerts` table.
+* `alerts.db` — Local SQLite database containing the `hybrid_alerts` table
 
 ## Model-Output Files
 
