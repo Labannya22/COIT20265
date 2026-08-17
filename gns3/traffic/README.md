@@ -1,52 +1,43 @@
 # Traffic Scenarios
 
-This directory contains controlled laboratory traffic scenarios.
-
-Planned scenarios:
-1. Normal web/DNS/SSH traffic
-2. Legitimate backup or bulk transfer
-3. Controlled Nmap reconnaissance
-4. Dummy exfiltration-like transfer
-
-# Normal Traffic Experiment
-
-This experiment generates legitimate network traffic between the Ubuntu client and Ubuntu server for Zeek monitoring and anomaly-detection testing.
-
-## Source
-
-Ubuntu Client: `192.168.10.10`
-
-## Destination
-
-Ubuntu Server: `192.168.10.20`
-
-## Traffic Types
-
-- HTTP
-- DNS
-- SSH
-- ICMP
+This directory contains the controlled laboratory traffic generated for the COIT20265 Network Anomaly Detection project.
 
 ## Packet Capture
 
-Traffic is captured by the passive Zeek sensor using `tcpdump`.
+Traffic was captured passively by the Zeek sensor using `tcpdump`.
 
-Planned capture file:
+Final clean capture:
 
-`normal_web_dns_ssh.pcap`
+`normal/normal_web_dns_ssh.pcap`
 
-## Zeek Logs
+The final PCAP was approximately **417 KB**.
 
-The captured traffic is processed using Zeek to generate:
+![Normal PCAP capture](../screenshots/normal_data_pcap_file.png)
+
+**Figure 1. Normal traffic PCAP successfully created.**
+
+---
+
+## Zeek Processing
+
+The PCAP was processed using Zeek and generated:
 
 - `conn.log`
 - `http.log`
 - `dns.log`
 - `ssh.log`
+- `files.log`
+- `packet_filter.log`
 
-## Extracted Features
+![Zeek log generation](../screenshots/capturing_data_log_file.png)
 
-The main connection-level fields include:
+**Figure 2. Zeek logs generated from the normal PCAP.**
+
+---
+
+## Connection Feature Extraction
+
+The following connection-level fields were extracted from `conn.log`:
 
 - Source IP
 - Source port
@@ -60,6 +51,38 @@ The main connection-level fields include:
 - Originator packets
 - Responder packets
 
-## Isolation
+The extracted records were saved as:
 
-The experiment is performed within the isolated `192.168.10.0/24` GNS3 laboratory network.
+`normal/conn_features.tsv`
+
+![Connection feature validation](../screenshots/data_checking.png)
+
+**Figure 3. Validation of HTTP, DNS, SSH and extracted connection features.**
+
+The current file contains **12 connection records** covering HTTP, DNS, SSH and ICMP traffic.
+
+---
+
+## Current Normal Traffic Files
+
+```text
+normal/
+├── normal_web_dns_ssh.pcap
+├── conn_features.tsv
+├── conn.log
+├── dns.log
+├── files.log
+├── http.log
+├── packet_filter.log
+└── ssh.log
+```
+
+
+## Traffic Scenarios
+
+| Scenario | Type | Status |
+|---|---|---|
+| HTTP / DNS / SSH / ICMP | Normal | ✅ Completed |
+| Legitimate backup / file transfer | Normal | ⏳ Planned |
+| Nmap reconnaissance | Controlled anomalous | ⏳ Planned |
+| Bulk / exfiltration-like transfer | Controlled anomalous | ⏳ Planned |
