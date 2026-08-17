@@ -2,7 +2,7 @@
 
 This directory contains the controlled virtual-network laboratory developed for the **COIT20265 Network Anomaly Detection Project**.
 
-The laboratory is designed to generate reproducible normal and controlled anomalous network traffic, capture PCAP files, generate Zeek logs, and prepare network-flow information for later anomaly-detection testing.
+The laboratory is designed to generate reproducible normal and controlled anomalous network traffic, capture PCAP files, generate Zeek logs, and prepare connection-level information for later anomaly-detection testing.
 
 ---
 
@@ -11,7 +11,7 @@ The laboratory is designed to generate reproducible normal and controlled anomal
 <p align="center">
   <img src="screenshots/final_connecting_from_gns3.png"
        alt="Final four-role GNS3 topology"
-       width="850">
+       width="900">
 </p>
 
 **Figure 1. Final four-role GNS3 laboratory topology.**
@@ -21,24 +21,30 @@ The laboratory contains four main roles:
 | Role | System | Address / Mode | Purpose |
 |---|---|---|---|
 | Normal Client | Ubuntu Client | `192.168.10.10/24` | Generates legitimate network traffic |
-| Application Server | Ubuntu Server | `192.168.10.20/24` | Provides HTTP, DNS and SSH services |
+| Application/File Server | Ubuntu Server | `192.168.10.20/24` | Provides normal network services |
 | Controlled Attacker | Kali Linux | `192.168.10.30/24` | Used for authorised controlled testing |
-| Monitoring Sensor | Zeek Sensor | Passive monitoring interface | Captures and analyses network traffic |
+| Monitoring Sensor | Zeek Sensor | Passive interface | Captures and analyses network traffic |
+
+All systems are connected through a GNS3 Ethernet Hub.
 
 ---
 
-## Network
+## Laboratory Network
 
-**Laboratory subnet:** `192.168.10.0/24`
+**Network:** `192.168.10.0/24`
 
-During controlled experiments:
+**Subnet mask:** `255.255.255.0`
+
+During final controlled experiments:
 
 - no default gateway is configured;
 - no GNS3 NAT node is connected;
 - no GNS3 Cloud node is connected;
 - no external router is connected.
 
-This keeps controlled experimental traffic inside the authorised laboratory.
+This design keeps controlled experimental traffic inside the authorised laboratory environment.
+
+Temporary external connectivity was used only when required for software installation and was removed before the final controlled traffic capture.
 
 ---
 
@@ -46,8 +52,7 @@ This keeps controlled experimental traffic inside the authorised laboratory.
 
 - GNS3
 - VMware Workstation
-- Ubuntu Server
-- Ubuntu Client
+- Ubuntu 26.04
 - Kali Linux
 - Zeek 8.0.9
 - tcpdump
@@ -60,36 +65,38 @@ This keeps controlled experimental traffic inside the authorised laboratory.
 
 ## Current Progress
 
-### Laboratory Setup
+### Environment and Topology
 
 - [x] GNS3 installed and configured
 - [x] VMware virtual machines integrated with GNS3
-- [x] Additional VMnet networking configured
-- [x] Four-role topology created
+- [x] Four-role topology designed
 - [x] Ubuntu client added
 - [x] Ubuntu server added
-- [x] Kali attacker added to topology
+- [x] Kali attacker added
 - [x] Zeek sensor added
-- [x] Ethernet Hub configured for passive monitoring
+- [x] Ethernet Hub used for passive traffic observation
 
 ### Network Configuration
 
 - [x] `192.168.10.0/24` laboratory network configured
 - [x] Ubuntu client configured as `192.168.10.10`
 - [x] Ubuntu server configured as `192.168.10.20`
-- [x] Zeek passive monitoring interface configured
+- [x] Kali attacker planned as `192.168.10.30`
 - [x] Client/server connectivity verified
+- [x] Zeek passive monitoring interface configured
 - [x] VMware DHCP contamination identified and corrected
+- [x] Final capture restricted to the authorised laboratory subnet
 
 ### Zeek Monitoring
 
 - [x] Zeek 8.0.9 installed
 - [x] Zeek executable path configured
 - [x] Passive interface `ens33` configured
-- [x] Passive packet visibility verified with tcpdump
-- [x] PCAP capture completed
-- [x] PCAP successfully processed using Zeek
-- [x] Protocol logs generated
+- [x] Packet visibility verified using tcpdump
+- [x] Normal traffic PCAP captured
+- [x] PCAP processed using Zeek
+- [x] Zeek protocol logs generated
+- [x] Connection fields extracted
 
 ### Normal Traffic
 
@@ -102,18 +109,19 @@ This keeps controlled experimental traffic inside the authorised laboratory.
 - [x] SSH sessions generated
 - [x] ICMP connectivity traffic generated
 - [x] Clean normal PCAP captured
-- [x] Zeek normal traffic logs inspected
-- [x] Connection features extracted
-- [x] Experimental files exported from Zeek VM
+- [x] Zeek logs inspected
+- [x] `conn_features.tsv` generated
+- [x] PCAP and log files exported to the host computer
+- [x] Experimental files uploaded to GitHub
 
-### Remaining Work
+### Remaining Laboratory Work
 
-- [ ] Legitimate file-transfer / backup traffic
+- [ ] Legitimate backup/file-transfer traffic
 - [ ] Controlled Nmap reconnaissance
 - [ ] Controlled bulk/exfiltration-like transfer
-- [ ] Separate PCAPs for attack scenarios
+- [ ] Separate PCAPs and Zeek logs for anomalous scenarios
 - [ ] Complete Zeek-to-model feature mapping
-- [ ] Integrate practical traffic with anomaly-detection pipeline
+- [ ] Integrate laboratory records with the anomaly-detection pipeline
 
 ---
 
@@ -149,9 +157,10 @@ Zeek
        +---- dns.log
        +---- ssh.log
        +---- files.log
+       +---- packet_filter.log
        |
        v
 conn_features.tsv
        |
        v
-Future anomaly-detection pipeline
+Future preprocessing and anomaly-detection pipeline
