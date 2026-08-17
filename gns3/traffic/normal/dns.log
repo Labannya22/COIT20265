@@ -1,0 +1,13 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	dns
+#open	2026-08-17-02-06-07
+#fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	proto	trans_id	rtt	query	qclass	qclass_name	qtype	qtype_name	rcode	rcode_name	AA	TC	RD	RA	Z	answers	TTLs	rejected
+#types	time	string	addr	port	addr	port	enum	count	interval	string	count	string	count	string	count	string	bool	bool	bool	bool	count	vector[string]	vector[interval]	bool
+1786931743.947377	C2xtmY1NVBUex8dl9d	192.168.10.10	52470	192.168.10.20	53	udp	57859	0.000510	app.lab	1	C_INTERNET	1	A	0	NOERROR	T	F	T	T	2	192.168.10.20	0.000000	F
+1786931757.160911	Ci68CEwPiXDYVF7q8	192.168.10.10	54652	192.168.10.20	53	udp	2909	0.000519	app.lab	1	C_INTERNET	1	A	0	NOERROR	T	F	T	T	2	192.168.10.20	0.000000	F
+1786931769.046153	CE6qbf4XxF3snPEwVf	192.168.10.10	56835	192.168.10.20	53	udp	22063	0.000520	app.lab	1	C_INTERNET	1	A	0	NOERROR	T	F	T	T	2	192.168.10.20	0.000000	F
+1786931773.156782	CE23OW2QjeUASfiawk	192.168.10.10	60847	192.168.10.20	53	udp	53372	0.000373	app.lab	1	C_INTERNET	1	A	0	NOERROR	T	F	T	T	2	192.168.10.20	0.000000	F
+#close	2026-08-17-02-06-07
