@@ -1,91 +1,202 @@
 # Hybrid Unsupervised Network Anomaly Detection
 
-COIT20265 Networks and Information Security Project, HT2 2026.
+**COIT20265 – Networks and Information Security Project, HT2 2026**
 
-An explainable, false-positive-aware hybrid anomaly detection system combining
-Isolation Forest and a Dense Autoencoder, evaluated on UNSW-NB15 and on
-independently generated GNS3/Zeek traffic.
+This project develops an **explainable and false-positive-aware hybrid unsupervised network anomaly detection system**.
 
-## Status
+The main approach combines **Isolation Forest (IF)** and a **Dense Autoencoder (AE)**. The hybrid model is compared with other unsupervised anomaly-detection models, including **One-Class SVM (OCSVM)**, **Deep SVDD**, and a **Local Outlier Factor (LOF) baseline**.
 
-| Work package | Owner | Status |
+The system is trained using **normal network traffic only** and evaluated using:
+
+- **UNSW-NB15**
+- **NF-CSE-CIC-IDS2018-v2**
+- Independently generated **GNS3/Zeek laboratory traffic**
+
+---
+
+## System Workflow
+
+```text
+                         Normal Training Data
+                                  |
+          +-----------------------+-----------------------+
+          |                       |                       |
+          v                       v                       v
+ Isolation Forest            Autoencoder               OCSVM
+          |                       |                       |
+          v                       v                       v
+      IF Score                AE Score              OCSVM Score
+          |                       |                       |
+          +-----------+-----------+                       |
+                      |                                   |
+                      v                                   |
+                IF + AE Hybrid                            |
+                      |                                   |
+                      +-------------------+---------------+
+                                          |
+                                          v
+                                Final Model Comparison
+                                  + LOF Baseline
+                                          ^
+                                          |
+                                     Deep SVDD
+```
+
+The **Isolation Forest and Autoencoder anomaly scores are combined to create the main IF + AE hybrid detector**.
+
+The final comparison includes:
+
+- IF + AE Hybrid
+- OCSVM
+- Deep SVDD
+- LOF baseline
+
+Calibration and threshold selection will be used during evaluation to support false-positive-aware anomaly detection.
+
+---
+
+## Evaluation Data
+
+### 1. UNSW-NB15
+
+UNSW-NB15 is the primary benchmark dataset.
+
+The preprocessing work for this dataset has been completed. Normal training data is used for unsupervised model training, while the labelled test data is used for evaluation.
+
+### 2. NF-CSE-CIC-IDS2018-v2
+
+NF-CSE-CIC-IDS2018-v2 is the second benchmark dataset.
+
+This dataset is currently being processed to evaluate whether the developed models can generalise beyond UNSW-NB15.
+
+### 3. GNS3 / Zeek Dataset
+
+A practical network dataset is independently generated using the GNS3 laboratory.
+
+The current normal traffic contains:
+
+- HTTP
+- DNS
+- SSH
+- ICMP
+
+The traffic is captured as PCAP and processed using **Zeek** to create connection-level information for practical model testing.
+
+---
+
+## Model Progress
+
+| Model | Purpose | Status |
 |---|---|---|
-| 2.0 Research and requirements | Labannya Barua | Complete (Assessment 1) |
-| 3.0 Dataset and data engineering | Labannya Barua | Complete to 21 Aug schedule |
-| 4.0 Individual model development | Syed Rubaiyat Karim | Unblocked, sample available |
-| 5.0 Hybrid scoring and thresholding | Syed Rubaiyat Karim | Blocked on 4.0 |
-| 6.0 Explainability and severity | Mst Sinha Naznin | Fixture available |
-| 7.0 Virtual network and traffic | Arjita Saha | Draft feature map available |
+| Isolation Forest | Main unsupervised anomaly detector |  Implemented |
+| Dense Autoencoder | Reconstruction-based anomaly detector |  Implemented |
+| IF + AE Hybrid | Main hybrid detector |  Implemented |
+| One-Class SVM | Comparison model |  In progress |
+| Deep SVDD | Comparison model |  In progress |
+| Local Outlier Factor | Baseline comparison |  In progress |
 
+---
 
-## Quick start
+## Current Project Progress
 
-```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+| Area | Team Member | Progress |
+|---|---|---|
+| Dataset Processing | **Labannya Barua** |  UNSW-NB15 processing completed; currently working on NF-CSE-CIC-IDS2018-v2 |
+| Model Development | **Syed Rubaiyat Karim** |  IF, AE and IF+AE Hybrid implemented; OCSVM and Deep SVDD currently in progress |
+| Virtual Network and Traffic Generation | **Arjita Saha** |  GNS3/Zeek environment configured and normal HTTP, DNS, SSH and ICMP dataset created |
+| Dashboard and Integration | **Mst Sinha Naznin** |  Dashboard implemented and three model outputs integrated; LOF implementation/integration currently in progress |
 
-# place UNSW_NB15_training-set.csv and UNSW_NB15_testing-set.csv in data/raw/
-python src/profile_unsw.py --data-dir data/raw --out reports
-python src/audit_duplicates.py --data-dir data/raw --out reports
-python src/build_pipeline.py --data-dir data/raw
-python src/sanity_check.py
-python src/shift_analysis.py
+---
+
+## GNS3 / Zeek Laboratory
+
+The practical laboratory contains four systems:
+
+| System | Address / Mode |
+|---|---|
+| Ubuntu Client | `192.168.10.10/24` |
+| Ubuntu Server | `192.168.10.20/24` |
+| Kali Attacker | `192.168.10.30/24` |
+| Zeek Sensor | Passive monitoring |
+
+Current laboratory progress:
+
+- [x] Four-role GNS3 topology
+- [x] Isolated `192.168.10.0/24` network
+- [x] Zeek 8.0.9 monitoring
+- [x] HTTP traffic
+- [x] DNS traffic
+- [x] SSH traffic
+- [x] ICMP traffic
+- [x] Clean normal PCAP
+- [x] Zeek log generation
+- [x] Connection feature extraction
+- [ ] Nmap reconnaissance traffic
+- [ ] Controlled bulk/exfiltration-like traffic
+- [ ] Final Zeek-to-model feature mapping
+
+Detailed laboratory documentation is available under:
+
+```text
+gns3/
 ```
 
-## Repository layout
+---
 
-```
-config/     feature_order.json, feature_dictionary.csv
-data/       raw/ processed/ lab_samples/     (gitignored)
-docs/       handover notes and decisions
-models/     preprocessor.joblib               (gitignored)
-reports/    generated reports and figures
-src/        scripts
-```
+## Dashboard
 
-## Using the pipeline
+The dashboard presents anomaly-detection results in an analyst-friendly format.
 
-**Do not refit the preprocessor.** It is fitted on the training split only;
-refitting on any other data introduces leakage (R-04).
+Current dashboard work includes:
 
-```python
-import joblib, json, numpy as np
+- dashboard interface implemented;
+- three model outputs integrated;
+- model anomaly results displayed;
+- model comparison support;
+- LOF implementation/integration currently in progress.
 
-pre  = joblib.load("models/preprocessor.joblib")
-cfg  = json.load(open("config/feature_order.json"))
+Further work will include:
 
-train = np.load("data/processed/train_normal.npz")["X"]   # fit models on this
-val   = np.load("data/processed/val_normal.npz")["X"]     # calibrate thresholds here
-test  = np.load("data/processed/test_full.npz")           # test["X"], test["y"]
-dedup = np.load("data/processed/test_dedup.npz")          # report both
-```
+- final hybrid-model integration;
+- calibration results;
+- severity information;
+- explainability output.
 
-`cfg["output_columns"]` is the authoritative column order. Any data entering
-the models must match it exactly.
+---
 
-## Key findings
+## Current Development Status
 
-Full detail in `docs/HANDOVER_DATA_ENGINEERING.md`. Three results change how the system
-must be built:
+### Completed
 
-1. **The portable feature set works.** Excluding every TTL and packet-level
-   feature still gives ROC-AUC 0.795 and PR-AUC 0.845 under an untuned
-   Isolation Forest.
+- [x] UNSW-NB15 preprocessing
+- [x] Isolation Forest implementation
+- [x] Dense Autoencoder implementation
+- [x] IF + AE Hybrid implementation
+- [x] GNS3/Zeek laboratory setup
+- [x] Normal HTTP/DNS/SSH/ICMP dataset generation
+- [x] Clean normal PCAP capture
+- [x] Zeek log generation
+- [x] Connection feature extraction
+- [x] Dashboard implementation
+- [x] Three model outputs integrated into the dashboard
 
-2. **Thresholds do not transfer between data sources.** A threshold set for a
-   1% false-positive budget on validation data produced 2.13% on the test
-   partition. Recalibrated on test normals it produces 1.01%. The percentile
-   method is sound; the calibration data must match the scoring data.
+### In Progress
 
-3. **`sttl` is excluded deliberately.** It is the most separable feature in the
-   dataset (effect size 1.94) and unobtainable from conn.log. Reported metrics
-   will sit below published UNSW-NB15 results for this reason.
+- [ ] NF-CSE-CIC-IDS2018-v2 preprocessing
+- [ ] OCSVM implementation
+- [ ] Deep SVDD implementation
+- [ ] LOF implementation/integration
+- [ ] Controlled Nmap traffic
+- [ ] Controlled bulk/exfiltration-like traffic
+- [ ] Calibration and final model comparison
+- [ ] Final dashboard integration
+- [ ] Explainability and severity presentation
 
-## Data
-
-UNSW-NB15 official partition (Moustafa & Slay 2015). Not committed to the
-repository. Download to `data/raw/` before running anything.
+---
 
 ## Team
 
-Labannya Barua, Syed Rubaiyat Karim, Arjita Saha, Mst Sinha Naznin.
+- **Labannya Barua** – Dataset and Data Engineering
+- **Syed Rubaiyat Karim** – Machine-Learning and Hybrid Model Development
+- **Arjita Saha** – GNS3 Virtual Network, Traffic Generation and Zeek Validation
+- **Mst Sinha Naznin** – Dashboard, Model Integration and Explainability
