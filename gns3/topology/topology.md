@@ -1,277 +1,81 @@
-# Four-Role GNS3 Topology
+# Four-Role GNS3 Laboratory Topology
 
-This document describes the four-role GNS3 laboratory topology used for the COIT20265 Network Anomaly Detection project.
+## 1. Final Topology
 
-The laboratory is designed to generate normal and controlled anomalous network traffic inside an isolated environment while allowing a dedicated Zeek sensor to passively monitor the communication.
+![Final four-role GNS3 topology](../screenshots/final_connecting_from_gns3.png)
 
----
+**Figure 1. Final four-role GNS3 topology.**
 
-## Topology
+| Role | IP / Mode | Purpose |
+|---|---|---|
+| Ubuntu Client | `192.168.10.10/24` | Generates normal traffic |
+| Ubuntu Server | `192.168.10.20/24` | Provides HTTP, DNS and SSH |
+| Kali Attacker | `192.168.10.30/24` | Controlled attack traffic |
+| Zeek Sensor | Passive `ens33` | Network monitoring |
 
-<p align="center">
-  <img src="final_connecting_from_gns3.png" alt="Final Four-Role GNS3 Topology" width="850">
-</p>
+All systems are connected through **Hub1** on the isolated `192.168.10.0/24` network.
 
-**Figure 1: Final four-role GNS3 laboratory topology**
-
-All four systems are connected to the same isolated GNS3 Ethernet Hub.
-
----
-
-## Network Information
-
-**Network:** `192.168.10.0/24`
-
-**Subnet Mask:** `255.255.255.0`
-
-**Default Gateway:** None
-
-The laboratory does not use a NAT node, Cloud node, or external router during controlled experiments.
+During controlled experiments, no default gateway, NAT node, Cloud node or external router is used.
 
 ---
 
-## Roles
+## 2. GNS3 and VMware Setup
 
-### Ubuntu Client
+Initial GNS3 configuration:
 
-The Ubuntu client acts as the normal user workstation and generates legitimate network activity.
+![Initial GNS3 configuration](../screenshots/setting_up_gns3.png)
 
-**Hostname:** `Ubuntu-client`
+**Figure 2. Initial GNS3 configuration.**
 
-**IP address:** `192.168.10.10/24`
+During setup, GNS3/VMware integration problems were encountered.
 
-Normal traffic generated from this machine includes:
+![GNS3 configuration error](../screenshots/error_in_gns3.png)
 
-* HTTP
-* DNS
-* SSH
-* ICMP/ping
-* File-access traffic
-* Controlled file-transfer activity
+**Figure 3. GNS3 configuration error encountered during setup.**
 
-The Ubuntu client primarily communicates with the Ubuntu server to create normal network behaviour for capture and analysis.
+![GNS3 VM error](../screenshots/not_working_gnsvm_error.png)
 
----
+**Figure 4. GNS3 VM/VMware integration issue.**
 
-### Ubuntu Server
-
-The Ubuntu server acts as the application and file server within the laboratory.
-
-**Hostname:** `Ubuntu-server`
-
-**IP address:** `192.168.10.20/24`
-
-The server provides services used to generate normal network communication, including:
-
-* HTTP
-* DNS
-* SSH
-* File-transfer services
-
-The server acts as the main destination for legitimate client traffic and controlled test traffic.
+These issues were resolved before completing the final four-role topology.
 
 ---
 
-### Kali Linux
+## 3. IP Addressing and Connectivity
 
-Kali Linux acts as the controlled attacker within the isolated laboratory environment.
+The Ubuntu client was configured as `192.168.10.10/24`.
 
-**Hostname:** `Kali-attacker`
+![Ubuntu client IP address](../screenshots/client_ip__addres.png)
 
-**IP address:** `192.168.10.30/24`
+**Figure 5. Ubuntu client IP configuration.**
 
-It is used only for authorised project testing.
+Connectivity between the Ubuntu client and Ubuntu server was successfully verified.
 
-Planned controlled activities include:
+![Client-to-server connectivity](../screenshots/pinging_client_to_server.png)
 
-* Nmap port scanning
-* Controlled network reconnaissance
-* Controlled bulk file-transfer activity
+**Figure 6. Successful client-to-server connectivity.**
 
-All testing is restricted to the private GNS3 laboratory network.
+Additional ICMP testing evidence:
 
-No scanning or attack traffic is intentionally directed toward external systems.
+![Additional ICMP test](../screenshots/ping_sending_from%20client.png)
 
----
-
-### Zeek Sensor
-
-The Zeek sensor acts as the passive network monitoring system.
-
-**Hostname:** `Zeek-sensor`
-
-**Monitoring mode:** Passive
-
-The monitoring interface does not require a normal host IP address for packet observation.
-
-The Zeek sensor observes traffic passing through the laboratory segment and generates network metadata and protocol logs.
-
-Important Zeek logs include:
-
-* `conn.log`
-* `http.log`
-* `dns.log`
-* `ssh.log`
-
-The connection logs provide information that can later be used for network anomaly analysis.
-
-Relevant fields include:
-
-* `id.orig_h` — originator/source IP address
-* `id.orig_p` — originator/source port
-* `id.resp_h` — responder/destination IP address
-* `id.resp_p` — responder/destination port
-* `proto` — transport protocol
-* `service` — detected application service
-* `duration` — connection duration
-* `orig_bytes` — bytes sent by the originator
-* `resp_bytes` — bytes sent by the responder
-* `orig_pkts` — packets sent by the originator
-* `resp_pkts` — packets sent by the responder
+**Figure 7. Additional ICMP connectivity test.**
 
 ---
 
-## Monitoring Design
+## 4. Normal Traffic Generation
 
-A GNS3 Ethernet Hub is used as the central connection point for the laboratory.
+### HTTP
 
-The following systems are connected to the hub:
+The Ubuntu server provided a Python HTTP service on TCP port 80.
 
-* Ubuntu Client
-* Ubuntu Server
-* Kali Attacker
-* Zeek Sensor
+![HTTP server configuration](../screenshots/server_cofig_for_normaldata.png)
 
-The hub allows the Zeek monitoring interface to observe traffic generated between the other systems.
+**Figure 8. HTTP service running on the Ubuntu server.**
 
-This enables the Zeek sensor to passively monitor:
+### DNS
 
-* Ubuntu-client → Ubuntu-server traffic
-* Ubuntu-server → Ubuntu-client traffic
-* Kali-attacker → Ubuntu-server traffic
-* Ubuntu-server → Kali-attacker traffic
-* Normal protocol activity
-* Controlled anomalous activity
-
-The Zeek sensor does not need to act as the source or destination of the monitored communication.
-
----
-
-## Normal Traffic
-
-Normal traffic will primarily be generated between:
+`dnsmasq` was configured with the local DNS record:
 
 ```text
-Ubuntu-client
-      |
-      v
-Ubuntu-server
-```
-
-Normal traffic types include:
-
-* HTTP web requests
-* DNS queries
-* SSH sessions
-* ICMP/ping
-* Normal file transfers
-
-These captures are used to represent legitimate network behaviour.
-
----
-
-## Controlled Test Traffic
-
-Controlled anomalous traffic will primarily be generated using:
-
-```text
-Kali-attacker
-      |
-      v
-Ubuntu-server
-```
-
-Planned activities include:
-
-* Nmap port scanning
-* Controlled bulk file-transfer activity
-
-These tests are performed only inside the isolated laboratory environment.
-
----
-
-## Packet Capture
-
-Traffic observed by the Zeek sensor will be captured into PCAP files for reproducible analysis.
-
-Planned captures include:
-
-```text
-normal_web_dns_ssh.pcap
-nmap_scan.pcap
-bulk_transfer.pcap
-```
-
-The captured PCAP files can then be processed using Zeek to generate protocol and connection logs.
-
----
-
-## Zeek Log Generation
-
-The normal traffic capture is expected to generate logs such as:
-
-```text
-conn.log
-http.log
-dns.log
-ssh.log
-```
-
-`conn.log` will be used as the primary connection-level record because it contains network-flow information such as:
-
-* source and destination addresses
-* source and destination ports
-* protocol
-* detected service
-* connection duration
-* transmitted bytes
-* packet counts
-
-These fields can later be mapped to the feature-processing and anomaly-detection stages of the project.
-
----
-
-## Network Isolation
-
-The laboratory network uses the private subnet:
-
-`192.168.10.0/24`
-
-During controlled experiments:
-
-* No default gateway is configured.
-* No GNS3 NAT node is connected.
-* No GNS3 Cloud node is connected.
-* No external router is connected.
-* Controlled attack traffic remains inside the laboratory network.
-
-External connectivity tests will also be performed to verify that the experimental machines cannot intentionally reach unauthorised external systems.
-
-This design helps ensure that all testing is restricted to the authorised project environment.
-
----
-
-
-## Implementation Purpose
-
-This topology provides the practical laboratory environment required to validate the network anomaly detection system.
-
-It allows the project to:
-
-1. Generate controlled normal network traffic.
-2. Generate controlled anomalous traffic.
-3. Capture network packets.
-4. Produce Zeek logs.
-5. Extract network-flow information.
-6. Evaluate anomaly-detection models using practical laboratory traffic.
-7. Demonstrate an isolated and reproducible testing environment.
+app.lab → 192.168.10.20
