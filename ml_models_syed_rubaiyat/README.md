@@ -6,7 +6,7 @@ This folder contains machine-learning model experiments for the network anomaly 
 
 ### 1. Isolation Forest Model
 
-**File:** `Isolation_Forest_Model_Rubaiyat.ipynb`
+**File:** [Isolation_Forest_Model_Rubaiyat.ipynb](https://github.com/Labannya22/COIT20265/blob/main/ml_models_syed_rubaiyat/Isolation_Forest_Model_Rubaiyat.ipynb)
 
 The Isolation Forest model was trained using normal network traffic. Six model configurations were compared using separate training, calibration and development data.
 
@@ -24,7 +24,7 @@ The notebook also evaluates the official and deduplicated test sets and produces
 
 ### 2. Dense Autoencoder Model
 
-**File:** `Dense_Autoencoder_Model.ipynb`
+**File:** [Dense_Autoencoder_Model.ipynb](https://github.com/Labannya22/COIT20265/blob/main/ml_models_syed_rubaiyat/Dense_Autoencoder_Model.ipynb)
 
 The Dense Autoencoder learns to reconstruct normal network traffic. Traffic with a high reconstruction error can be identified as anomalous.
 
@@ -32,7 +32,7 @@ This notebook is included for baseline training, testing and comparison with Iso
 
 ### 3. Hybrid Isolation Forest and Autoencoder Model
 
-**File:** `Hybrid_IF_AE_Model.ipynb`
+**File:** [Hybrid_IF_AE_Model.ipynb](https://github.com/Labannya22/COIT20265/blob/main/ml_models_syed_rubaiyat/Hybrid_IF_AE_Model.ipynb)
 
 The hybrid model combines Isolation Forest anomaly scores with Autoencoder reconstruction errors. The purpose is to examine whether combining the two detection methods can improve attack detection while controlling false-positive alerts.
 
