@@ -8,6 +8,8 @@ This folder contains machine-learning model experiments for the network anomaly 
 
 **File:** [Isolation_Forest_Model_Rubaiyat.ipynb](https://github.com/Labannya22/COIT20265/blob/main/ml_models_syed_rubaiyat/Isolation_Forest_Model_Rubaiyat.ipynb)
 
+The model implementation can be viewed and executed in Google Colab: [Open Model Notebook in Google Colab](https://colab.research.google.com/drive/1FoZumclAwmI9JTq9dcmauGnfdot3JXDw) 
+
 The Isolation Forest model was trained using normal network traffic. Six model configurations were compared using separate training, calibration and development data.
 
 IF-2 was selected as the final configuration based on its ROC-AUC and PR-AUC performance. The official UNSW-NB15 test set was kept separate during model selection and was only used for the final evaluation.
@@ -26,6 +28,8 @@ The notebook also evaluates the official and deduplicated test sets and produces
 
 **File:** [Dense_Autoencoder_Model.ipynb](https://github.com/Labannya22/COIT20265/blob/main/ml_models_syed_rubaiyat/Dense_Autoencoder_Model.ipynb)
 
+The model implementation can be viewed and executed in Google Colab:   [Open Model Notebook in Google Colab](https://colab.research.google.com/drive/1FoZumclAwmI9JTq9dcmauGnfdot3JXDw)
+
 The Dense Autoencoder learns to reconstruct normal network traffic. Traffic with a high reconstruction error can be identified as anomalous.
 
 This notebook is included for baseline training, testing and comparison with Isolation Forest.
@@ -33,6 +37,8 @@ This notebook is included for baseline training, testing and comparison with Iso
 ### 3. Hybrid Isolation Forest and Autoencoder Model
 
 **File:** [Hybrid_IF_AE_Model.ipynb](https://github.com/Labannya22/COIT20265/blob/main/ml_models_syed_rubaiyat/Hybrid_IF_AE_Model.ipynb)
+
+The model implementation can be viewed and executed in Google Colab:  [Open Model Notebook in Google Colab](https://colab.research.google.com/drive/1J_3kuGjgPivttk9q0VtEYUIwE8xqczI3) 
 
 The hybrid model combines Isolation Forest anomaly scores with Autoencoder reconstruction errors. The purpose is to examine whether combining the two detection methods can improve attack detection while controlling false-positive alerts.
 
