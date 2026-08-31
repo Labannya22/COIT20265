@@ -53,6 +53,66 @@ The models use:
 * Mixed development records for model comparison
 * The official test set for final evaluation
 
+## 4. One-Class SVM (OCSVM)
+
+The One-Class SVM model was developed by **Mst Sinha Naznin**. It learns a decision boundary around normal network-traffic records. Records outside this boundary are identified as potential anomalies.
+
+The model was evaluated using different false-positive budgets. Its dashboard displays the OCSVM score, threshold, prediction status, actual class and record-level details.
+
+**Files:**
+
+* `One_Class_SVM_Model.ipynb`
+* `ocsvm_dashboard_results.csv`
+
+
+```
+
+## 5. Local Outlier Factor (LOF)
+
+The Local Outlier Factor model was developed by **Mst Sinha Naznin**. LOF compares the local density of each network record with the density of its neighbouring records. A record with a significantly different local density is considered a potential anomaly.
+
+The LOF dashboard presents the anomaly score, threshold, prediction status, actual class and detailed results for a selected record.
+
+**Files:**
+
+* `LOF_Baseline_Model.ipynb`
+* `lof_dashboard_results.csv`
+
+```
+
+## 6. Deep SVDD
+
+The Deep Support Vector Data Description model was developed by **Mst Sinha Naznin**. Deep SVDD learns a compact representation of normal network traffic around a central point. Records located farther from the learned normal centre receive higher anomaly scores and may be classified as anomalies.
+
+The Deep SVDD dashboard displays the anomaly score, threshold, detection status, severity and selected-record details.
+
+**Files:**
+
+* `Deep_SVDD_Model.ipynb`
+* `deep_svdd_dashboard_results.csv`
+
+
+```
+
+## Final Six-Model Comparison
+
+A final comparison dashboard was created to compare all six anomaly-detection approaches:
+
+1. Isolation Forest
+2. Autoencoder
+3. Hybrid IF+AE
+4. One-Class SVM
+5. Local Outlier Factor
+6. Deep SVDD
+
+The dashboard compares Precision, Recall, F1 score, Actual FPR, false alerts per 1,000 normal records, ROC-AUC, PR-AUC and confusion-matrix results.
+
+**Files:**
+
+* `Final_Model_Comparison.ipynb`
+* `final_model_ranking_1pct.csv`
+
+
 ## Reproducibility
 
 The notebooks use fixed random seeds and recorded model parameters. The Isolation Forest configuration, trained model, result tables, predictions and graphs are saved as reproducible artefacts.
