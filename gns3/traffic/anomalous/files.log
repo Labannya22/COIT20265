@@ -1,0 +1,14 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	files
+#open	2026-08-17-02-06-07
+#fields	ts	fuid	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	source	depth	analyzers	mime_type	filename	duration	local_orig	is_orig	seen_bytes	total_bytes	missing_bytes	overflow_bytes	timedout	parent_fuid	md5	sha1	sha256	extracted	extracted_cutoff	extracted_size
+#types	time	string	string	addr	port	addr	port	string	count	set[string]	string	string	interval	bool	bool	count	count	count	count	bool	string	string	string	string	string	bool	count
+1786931725.001802	Fr00eg1nEYjXA4Czpf	CmtZMQ2rSvRK8dmHtj	192.168.10.10	54104	192.168.10.20	80	HTTP	0	(empty)	text/plain	-	0.000000	T	F	55	55	0	0	F	-	-	-	-	-	-	-
+1786931729.274756	FVXD154mJGdrIQkE17	CMSE2D2rPfcY9rY4hc	192.168.10.10	54108	192.168.10.20	80	HTTP	0	(empty)	text/plain	-	0.000000	T	F	55	55	0	0	F	-	-	-	-	-	-	-
+1786931732.831875	F16TlK1E1uXvIPYCk9	CKYaSR2bL98jbOYyqf	192.168.10.10	53628	192.168.10.20	80	HTTP	0	(empty)	text/plain	-	0.000000	T	F	55	55	0	0	F	-	-	-	-	-	-	-
+1786931733.959945	F7rcxG4kBJ9soe19v3	Cu7mFd3Z5KqZmZrMRi	192.168.10.10	53644	192.168.10.20	80	HTTP	0	(empty)	text/plain	-	0.000000	T	F	55	55	0	0	F	-	-	-	-	-	-	-
+1786931735.424055	FofGAn33uPMVM6TIz9	CcGNHVxQhDfP7P9Fh	192.168.10.10	53656	192.168.10.20	80	HTTP	0	(empty)	text/plain	-	0.000000	T	F	55	55	0	0	F	-	-	-	-	-	-	-
+#close	2026-08-17-02-06-07

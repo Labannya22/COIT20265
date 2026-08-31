@@ -1,0 +1,21 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	conn
+#open	2026-08-17-02-06-07
+#fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	proto	service	duration	orig_bytes	resp_bytes	conn_state	local_orig	local_resp	missed_bytes	history	orig_pkts	orig_ip_bytes	resp_pkts	resp_ip_bytes	tunnel_parents	ip_proto
+#types	time	string	addr	port	addr	port	enum	string	interval	count	count	string	bool	bool	count	string	count	count	count	count	set[string]	count
+1786931724.997899	CmtZMQ2rSvRK8dmHtj	192.168.10.10	54104	192.168.10.20	80	tcp	http	0.004304	77	240	SF	T	T	0	ShADadfF	5	345	5	508	-	6
+1786931729.272748	CMSE2D2rPfcY9rY4hc	192.168.10.10	54108	192.168.10.20	80	tcp	http	0.002353	87	240	SF	T	T	0	ShADadfF	5	355	5	508	-	6
+1786931732.830067	CKYaSR2bL98jbOYyqf	192.168.10.10	53628	192.168.10.20	80	tcp	http	0.002170	77	240	SF	T	T	0	ShADadfF	5	345	5	508	-	6
+1786931733.957985	Cu7mFd3Z5KqZmZrMRi	192.168.10.10	53644	192.168.10.20	80	tcp	http	0.002337	87	240	SF	T	T	0	ShADadfF	5	355	5	508	-	6
+1786931735.422449	CcGNHVxQhDfP7P9Fh	192.168.10.10	53656	192.168.10.20	80	tcp	http	0.002435	77	240	SF	T	T	0	ShADadfF	5	345	5	508	-	6
+1786931743.947377	C2xtmY1NVBUex8dl9d	192.168.10.10	52470	192.168.10.20	53	udp	dns	0.000510	48	52	SF	T	T	0	Dd	1	76	1	80	-	17
+1786931757.160911	Ci68CEwPiXDYVF7q8	192.168.10.10	54652	192.168.10.20	53	udp	dns	0.000519	48	52	SF	T	T	0	Dd	1	76	1	80	-	17
+1786931769.046153	CE6qbf4XxF3snPEwVf	192.168.10.10	56835	192.168.10.20	53	udp	dns	0.000520	48	52	SF	T	T	0	Dd	1	76	1	80	-	17
+1786931773.156782	CE23OW2QjeUASfiawk	192.168.10.10	60847	192.168.10.20	53	udp	dns	0.000373	48	52	SF	T	T	0	Dd	1	76	1	80	-	17
+1786931790.669726	CPxGFw1ikqwo4o38Sc	192.168.10.10	57920	192.168.10.20	22	tcp	ssh	48.051686	43656	49476	SF	T	T	0	ShADadFf	1152	103568	1156	109596	-	6
+1786931851.364506	CXqUHR2BpsnToAjTOh	192.168.10.10	40458	192.168.10.20	22	tcp	ssh	14.964382	21920	26016	SF	T	T	0	ShADadFf	536	49800	540	54104	-	6
+1786931880.955725	C26Egs4yzKZBTroygf	192.168.10.10	8	192.168.10.20	0	icmp	-	4.043764	280	280	OTH	T	T	0	-	5	420	5	420	-	1
+#close	2026-08-17-02-06-07

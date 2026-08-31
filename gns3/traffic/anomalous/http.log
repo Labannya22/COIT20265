@@ -1,0 +1,14 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	http
+#open	2026-08-17-02-06-07
+#fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	trans_depth	method	host	uri	referrer	version	user_agent	origin	request_body_len	response_body_len	status_code	status_msg	info_code	info_msg	tags	username	password	proxied	orig_fuids	orig_filenames	orig_mime_types	resp_fuids	resp_filenames	resp_mime_types
+#types	time	string	addr	port	addr	port	count	string	string	string	string	string	string	string	count	count	count	string	count	string	set[enum]	string	string	set[string]	vector[string]	vector[string]	vector[string]	vector[string]	vector[string]	vector[string]
+1786931724.998744	CmtZMQ2rSvRK8dmHtj	192.168.10.10	54104	192.168.10.20	80	1	GET	192.168.10.20	/	-	1.0	curl/8.18.0	-	0	55	200	OK	-	-	(empty)	-	-	-	-	-	-	Fr00eg1nEYjXA4Czpf	-	text/plain
+1786931729.273648	CMSE2D2rPfcY9rY4hc	192.168.10.10	54108	192.168.10.20	80	1	GET	192.168.10.20	/index.html	-	1.0	curl/8.18.0	-	0	55	200	OK	-	-	(empty)	-	-	-	-	-	-	FVXD154mJGdrIQkE17	-	text/plain
+1786931732.830914	CKYaSR2bL98jbOYyqf	192.168.10.10	53628	192.168.10.20	80	1	GET	192.168.10.20	/	-	1.0	curl/8.18.0	-	0	55	200	OK	-	-	(empty)	-	-	-	-	-	-	F16TlK1E1uXvIPYCk9	-	text/plain
+1786931733.958772	Cu7mFd3Z5KqZmZrMRi	192.168.10.10	53644	192.168.10.20	80	1	GET	192.168.10.20	/index.html	-	1.0	curl/8.18.0	-	0	55	200	OK	-	-	(empty)	-	-	-	-	-	-	F7rcxG4kBJ9soe19v3	-	text/plain
+1786931735.423137	CcGNHVxQhDfP7P9Fh	192.168.10.10	53656	192.168.10.20	80	1	GET	192.168.10.20	/	-	1.0	curl/8.18.0	-	0	55	200	OK	-	-	(empty)	-	-	-	-	-	-	FofGAn33uPMVM6TIz9	-	text/plain
+#close	2026-08-17-02-06-07
