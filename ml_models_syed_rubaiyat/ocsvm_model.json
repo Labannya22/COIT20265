@@ -1,0 +1,23 @@
+{
+    "model": "One-Class SVM",
+    "model_type": "Unsupervised comparison model",
+    "purpose": "Network anomaly detection",
+    "training_data": "train_normal.npz",
+    "validation_data": "val_normal.npz",
+    "test_data": "test_full.npz",
+    "training_strategy": "Normal-only training",
+    "input_features": 41,
+    "kernel": "rbf",
+    "gamma": "scale",
+    "nu": 0.01,
+    "score_direction": "Higher score means more anomalous",
+    "score_definition": "negative of sklearn OneClassSVM decision_function",
+    "roc_auc": 0.7942795650587497,
+    "pr_auc": 0.8375170519205379,
+    "support_vectors": 450,
+    "thresholds": {
+        "0.5% budget": 0.715225019931776,
+        "1% budget": -5.3313550321087755e-05,
+        "3% budget": -1.0914602100972197
+    }
+}

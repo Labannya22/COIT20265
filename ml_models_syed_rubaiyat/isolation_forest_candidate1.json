@@ -1,16 +1,24 @@
 {
-  "model": "Isolation Forest",
-  "status": "candidate",
-  "n_estimators": 300,
-  "max_samples": 0.8,
-  "max_features": 1.0,
-  "contamination": "auto",
-  "random_state": 42,
-  "roc_auc": 0.851001,
-  "pr_auc": 0.897443,
-  "thresholds": {
-    "0.5% budget": 0.5676495685072951,
-    "1% budget": 0.5460537691550149,
-    "3% budget": 0.4966390963721801
-  }
+    "model": "Isolation Forest",
+    "model_type": "Unsupervised comparison model",
+    "purpose": "Network anomaly detection",
+    "training_data": "train_normal.npz",
+    "validation_data": "val_normal.npz",
+    "test_data": "test_full.npz",
+    "training_strategy": "Normal-only training",
+    "input_features": 41,
+    "n_estimators": 300,
+    "max_samples": 0.8,
+    "max_features": 1.0,
+    "contamination": "auto",
+    "random_seed": 42,
+    "score_direction": "Higher score means more anomalous",
+    "score_definition": "negative of sklearn IsolationForest score_samples",
+    "roc_auc": 0.8510011223501803,
+    "pr_auc": 0.8974425075221326,
+    "thresholds": {
+        "0.5% budget": 0.5676495685072951,
+        "1% budget": 0.5460537691550149,
+        "3% budget": 0.4966390963721801
+    }
 }

@@ -1,0 +1,29 @@
+{
+    "model": "Deep SVDD",
+    "model_type": "Deep unsupervised comparison model",
+    "purpose": "Network anomaly detection",
+    "training_data": "train_normal.npz",
+    "validation_data": "val_normal.npz",
+    "test_data": "test_full.npz",
+    "training_strategy": "Normal-only training",
+    "input_features": 41,
+    "representation_dim": 16,
+    "hidden_layers": [
+        64,
+        32
+    ],
+    "epochs": 30,
+    "batch_size": 512,
+    "learning_rate": 0.001,
+    "weight_decay": 1e-06,
+    "random_seed": 42,
+    "score_direction": "Higher score means more anomalous",
+    "score_definition": "Squared Euclidean distance from Deep SVDD centre",
+    "roc_auc": 0.887057611293019,
+    "pr_auc": 0.8955070168665041,
+    "thresholds": {
+        "0.5% budget": 8.080383850028738e-05,
+        "1% budget": 5.488995884661563e-05,
+        "3% budget": 3.0722618248546496e-05
+    }
+}

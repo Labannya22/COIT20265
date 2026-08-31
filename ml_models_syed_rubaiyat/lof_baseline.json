@@ -1,0 +1,25 @@
+{
+    "model": "Local Outlier Factor",
+    "model_type": "LOF baseline",
+    "purpose": "Unsupervised network anomaly detection",
+    "training_data": "train_normal.npz",
+    "validation_data": "val_normal.npz",
+    "test_data": "test_full.npz",
+    "training_strategy": "Normal-only training",
+    "input_features": 41,
+    "n_neighbors": 20,
+    "metric": "minkowski",
+    "p": 2,
+    "contamination": "auto",
+    "novelty": true,
+    "score_direction": "Higher score means more anomalous",
+    "score_definition": "negative of sklearn LOF score_samples",
+    "random_seed": 42,
+    "roc_auc": 0.8975079941739146,
+    "pr_auc": 0.8886995324477657,
+    "thresholds": {
+        "0.5% budget": 1.9827458421041482,
+        "1% budget": 1.8009945299909127,
+        "3% budget": 1.476140406733413
+    }
+}
