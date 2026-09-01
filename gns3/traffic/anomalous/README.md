@@ -48,26 +48,23 @@ These fields contain information such as:
 
 ## Individual Attack Files
 
-### `nmap_features_raw.tsv`
-
-Contains the raw Zeek connection information from the controlled Nmap port scan.
-
+nmap_features_raw.tsv: Contains the raw Zeek connection information from the controlled Nmap port scan.
 The scan generated connection attempts to many different destination ports on the Ubuntu Server.
 
-### `http_features_raw.tsv`
+## http_features_raw.tsv
 
 Contains the raw Zeek connection information from the HTTP request burst.
 
 Repeated HTTP GET requests were generated against the web service running on the Ubuntu Server.
 
-### `dns_features_raw.tsv`
+## dns_features_raw.tsv
 
 Contains the raw Zeek connection information from the DNS query burst.
 
 Repeated DNS queries were generated against the DNS service using the test domain: app.lab
 
 
-### `bulk_features_raw.tsv`
+## bulk_features_raw.tsv
 
 Contains the raw Zeek connection information from the bulk-transfer experiment.
 
