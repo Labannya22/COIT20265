@@ -4,8 +4,6 @@ This folder contains the additional physical-laptop validation completed.
 
 The purpose of this test was to check whether the GNS3 and Zeek environment could capture and analyse traffic coming from a different physical computer, rather than only using the virtual Kali attacker inside the original GNS3 laboratory.
 
----
-
 ## Test Environment
 
 Two separate physical laptops were used.
@@ -20,12 +18,11 @@ The main addresses used during the test were:
 
 | System | IP Address |
 |---|---|
-| External Kali | `192.168.4.52` |
-| Arjita's Windows host | `192.168.4.47` |
-| GNS3-side host interface | `192.168.10.1` |
-| Ubuntu Server | `192.168.10.20` |
+| External Kali | 192.168.4.52 |
+| Arjita's Windows host | 192.168.4.47 |
+| GNS3-side host interface | 192.168.10.1 |
+| Ubuntu Server | 192.168.10.20 |
 
----
 ## External Kali Connectivity
 
 Labannya's Kali machine was running on a separate physical laptop.
@@ -42,7 +39,7 @@ Labannya's Kali machine successfully reached Arjita's Windows host at: 192.168.4
        width="750">
 </p>
 
-**Figure 3. Labannya's Kali machine connected to the arjita laptop through the same private Wi-Fi network.**
+**Figure 1. Labannya's Kali machine connected to the arjita laptop through the same private Wi-Fi network.**
 
 A route was then added so that the external Kali machine could reach the GNS3 network: 192.168.10.0/24 via 192.168.4.47
 After the correct route was configured, Kali successfully reached the Ubuntu Server at: 192.168.10.20
@@ -55,24 +52,15 @@ The ping test completed with 0% packet loss.
        width="750">
 </p>
 
-**Figure 4. Successful connection from Labannya's external Kali machine to the Ubuntu Server inside the GNS3 network.**
+**Figure 2. Successful connection from Labannya's external Kali machine to the Ubuntu Server inside the GNS3 network.**
 
 This confirmed that the external laptop could communicate with the GNS3 server before the controlled Nmap test was performed.
 ## Network Connection
 
 The external Kali machine and the GNS3 environment were on different network ranges.
 
-The external Kali machine was on:
-
-```text
-192.168.4.0/22
-```
-
-The GNS3 laboratory was on:
-
-```text
-192.168.10.0/24
-```
+The external Kali machine was on:192.168.4.0/22
+The GNS3 laboratory was on:192.168.10.0/24
 
 Routing was therefore configured on the Windows host so that traffic could pass between the private Wi-Fi network and the GNS3 laboratory network.
 
@@ -84,7 +72,7 @@ IPv4 forwarding was enabled on the Wi-Fi interface and the VMware VMnet4 interfa
        width="900">
 </p>
 
-**Figure 1. IPv4 forwarding configured for communication with the GNS3 network.**
+**Figure 3. IPv4 forwarding configured for communication with the GNS3 network.**
 
 The Windows host was also able to communicate successfully with the Ubuntu Server at `192.168.10.20`.
 
@@ -94,29 +82,16 @@ The Windows host was also able to communicate successfully with the Ubuntu Serve
        width="900">
 </p>
 
-**Figure 2. Successful connectivity test to the Ubuntu Server.**
+**Figure 4. Successful connectivity test to the Ubuntu Server.**
 
----
 
 ## External Kali Connectivity
 
 After the routing configuration was completed, the Kali machine running on Labannya's separate laptop was able to communicate with the Ubuntu Server.
 
-The external Kali address was:
-
-```text
-192.168.4.52
-```
-
-The target Ubuntu Server was:
-
-```text
-192.168.10.20
-```
-
+The external Kali address was: 192.168.4.52
+The target Ubuntu Server was: 192.168.10.20
 A ping test was used first to confirm that the connection was working before performing the controlled Nmap test.
-
----
 
 ## Controlled External Nmap Scan
 
@@ -151,8 +126,6 @@ Ubuntu Server
 
 The purpose of this test was to generate reconnaissance traffic from a completely separate physical computer.
 
----
-
 ## Packet Capture and Zeek Analysis
 
 The Nmap traffic was captured as a PCAP file.
@@ -165,11 +138,7 @@ The PCAP was later analysed using Zeek.
 
 Zeek generated connection records showing the external Kali system as the traffic originator and the Ubuntu Server as the destination.
 
-The final Zeek result showed:
-
-```text
-192.168.4.52 -> 192.168.10.20
-```
+The final Zeek result showed: 192.168.4.52 -> 192.168.10.20
 
 The scan generated connections to many different destination ports.
 
@@ -183,8 +152,6 @@ The scan generated connections to many different destination ports.
 
 Approximately 1,004 Zeek connection records were extracted from the full external Nmap capture.
 
----
-
 ## Why This Test Was Performed
 
 The original controlled attacks were generated using virtual machines inside the GNS3 laboratory.
@@ -194,8 +161,6 @@ This additional experiment extended the practical testing by using Kali Linux on
 This showed that the network setup could receive, capture and analyse traffic generated from a separate physical device.
 
 It also provided additional practical validation of the Zeek traffic collection process before the data was prepared for the anomaly-detection models.
-
----
 
 ## External Validation Flow
 
@@ -226,17 +191,13 @@ Zeek Analysis
 External Nmap Connection Records
 ```
 
----
-
 ## Files
 
 | File | Description |
 |---|---|
-| `external_nmap_full.pcap` | Full packet capture from the external Nmap test |
+| external_nmap_full.pcap | Full packet capture from the external Nmap test |
 
-Additional screenshots showing the routing, connectivity and Zeek results are stored in the main `gns3/screenshots/` directory.
-
----
+Additional screenshots showing the routing, connectivity and Zeek results are stored in the main gns3/screenshots/ directory.
 
 ## Safety and Scope
 
