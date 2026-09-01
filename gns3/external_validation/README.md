@@ -26,7 +26,38 @@ The main addresses used during the test were:
 | Ubuntu Server | `192.168.10.20` |
 
 ---
+## External Kali Connectivity
 
+Labannya's Kali machine was running on a separate physical laptop.
+
+The Kali machine received the IP address: 192.168.4.52
+
+First, connectivity between the two physical laptops was checked.
+
+Labannya's Kali machine successfully reached Arjita's Windows host at: 192.168.4.47
+
+<p align="center">
+  <img src="../screenshots/2.png"
+       alt="External Kali connectivity to Windows host"
+       width="750">
+</p>
+
+**Figure 3. Labannya's Kali machine connected to the arjita laptop through the same private Wi-Fi network.**
+
+A route was then added so that the external Kali machine could reach the GNS3 network: 192.168.10.0/24 via 192.168.4.47
+After the correct route was configured, Kali successfully reached the Ubuntu Server at: 192.168.10.20
+
+The ping test completed with 0% packet loss.
+
+<p align="center">
+  <img src="../screenshots/1.png"
+       alt="External Kali connectivity to GNS3 Ubuntu Server"
+       width="750">
+</p>
+
+**Figure 4. Successful connection from Labannya's external Kali machine to the Ubuntu Server inside the GNS3 network.**
+
+This confirmed that the external laptop could communicate with the GNS3 server before the controlled Nmap test was performed.
 ## Network Connection
 
 The external Kali machine and the GNS3 environment were on different network ranges.
