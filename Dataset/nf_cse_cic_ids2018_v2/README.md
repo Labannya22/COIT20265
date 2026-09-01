@@ -44,7 +44,26 @@ The Label and Attack columns were excluded from model inputs to prevent target l
 The remaining columns were converted to numeric values, while unusable and constant columns were removed, leaving 40 features.
 Normal traffic was divided into training, calibration and testing subsets.
 Missing-value replacements and clipping limits were calculated using only the normal training data.
+
+
 A RobustScaler was fitted only on the normal training records and then applied to the remaining datasets.
 Finally, all outputs were checked to confirm that no invalid or infinite values remained before they were saved.
 
+## Evidence of Deep Technical Understanding
+
+### Preventing data leakage
+
+The IP addresses were removed because a model could memorise particular devices or networks instead of learning meaningful traffic behaviour. The label and attack name were excluded because they directly reveal the expected answer. I also fitted the scaler and calculated clipping limits from the normal training data only. Using test or attack data for these calculations would leak information into the preparation stage and make the evaluation less reliable.
+
+### Reason for normal-only training
+
+The anomaly-detection approach is designed to learn normal behaviour and assign higher anomaly scores to traffic that differs from it. Therefore, the training set contains only normal records. A separate normal calibration set supports threshold selection without using the final test set.
+
+### Reason for RobustScaler and clipping
+
+Network-flow values such as byte counts and durations can contain very large outliers. Quantile clipping limits the effect of extreme values, while RobustScaler uses robust statistics and is less sensitive to large outliers than ordinary standardisation. The same fitted transformation is then applied consistently to every dataset.
+
+### Reproducibility and model compatibility
+
+A fixed random seed makes the retained sample and data split reproducible. The feature-order file ensures that every team member supplies the same 40 variables to the models in the same order. The fitted scaler allows the exact preprocessing transformation to be reused rather than estimated again.
 
