@@ -31,3 +31,18 @@ processing_summary.json — evidence of the completed processing
 A compressed preprocessing evidence package
 
 Collab: https://colab.research.google.com/drive/1liS4vvLZYAE7W5zO26g8spefoiVhItKN?usp=sharing
+
+## Processing Method and Technical Attributes
+The complete CSV was streamed in chunks instead of loading all 18.9 million rows into memory.
+Column names were standardised, and the binary label field was checked.
+Positive and negative infinite values were replaced with missing values.
+Duplicate records were detected and removed within each chunk.
+Records containing invalid labels were excluded.
+A reproducible sample of 400,000 normal and 300,000 attack records was retained using a fixed random seed.
+Source and destination IP addresses were removed because they are identifiers.
+The Label and Attack columns were excluded from model inputs to prevent target leakage.
+The remaining columns were converted to numeric values, while unusable and constant columns were removed, leaving 40 features.
+Normal traffic was divided into training, calibration and testing subsets.
+Missing-value replacements and clipping limits were calculated using only the normal training data.
+A RobustScaler was fitted only on the normal training records and then applied to the remaining datasets.
+Finally, all outputs were checked to confirm that no invalid or infinite values remained before they were saved.
