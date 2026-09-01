@@ -29,3 +29,5 @@ robust_scaler.joblib — the fitted preprocessing scaler
 processing_summary.json — evidence of the completed processing
 
 A compressed preprocessing evidence package
+
+Collab: https://colab.research.google.com/drive/1liS4vvLZYAE7W5zO26g8spefoiVhItKN?usp=sharing
