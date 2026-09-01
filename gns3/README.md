@@ -1,10 +1,6 @@
-# GNS3 Virtual Network and Traffic Generation Laboratory
+# GS3 Virtual Network and Traffic Generation Laboratory
 
-This directory contains the controlled virtual-network laboratory developed for the **COIT20265 Network Anomaly Detection Project**.
-
-The laboratory is designed to generate reproducible normal and controlled anomalous network traffic, capture PCAP files, generate Zeek logs, and prepare connection-level information for later anomaly-detection testing.
-
----
+This directory contains the controlled virtual-network laboratory developed. The laboratory is designed to generate reproducible normal and controlled anomalous network traffic, capture PCAP files, generate Zeek logs, and prepare connection-level information for later anomaly-detection testing.
 
 ## Final Laboratory Topology
 
@@ -20,33 +16,28 @@ The laboratory contains four main roles:
 
 | Role | System | Address / Mode | Purpose |
 |---|---|---|---|
-| Normal Client | Ubuntu Client | `192.168.10.10/24` | Generates legitimate network traffic |
-| Application/File Server | Ubuntu Server | `192.168.10.20/24` | Provides normal network services |
-| Controlled Attacker | Kali Linux | `192.168.10.30/24` | Used for authorised controlled testing |
+| Normal Client | Ubuntu Client | 192.168.10.10/24 | Generates legitimate network traffic |
+| Application/File Server | Ubuntu Server | 192.168.10.20/24 | Provides normal network services |
+| Controlled Attacker | Kali Linux | 192.168.10.30/24 | Used for authorised controlled testing |
 | Monitoring Sensor | Zeek Sensor | Passive interface | Captures and analyses network traffic |
 
 All systems are connected through a GNS3 Ethernet Hub.
 
----
-
 ## Laboratory Network
 
-**Network:** `192.168.10.0/24`
+**Network:** 192.168.10.0/24
 
-**Subnet mask:** `255.255.255.0`
+**Subnet mask:** 255.255.255.0
 
 During final controlled experiments:
-
-- no default gateway is configured;
-- no GNS3 NAT node is connected;
-- no GNS3 Cloud node is connected;
-- no external router is connected.
+1. no default gateway is configured;
+2. no GNS3 NAT node is connected;
+3. no GNS3 Cloud node is connected;
+4. no external router is connected.
 
 This design keeps controlled experimental traffic inside the authorised laboratory environment.
 
 Temporary external connectivity was used only when required for software installation and was removed before the final controlled traffic capture.
-
----
 
 ## Technologies Used
 
@@ -60,76 +51,6 @@ Temporary external connectivity was used only when required for software install
 - dnsmasq
 - OpenSSH
 - Python HTTP server
-
----
-
-## Current Progress
-
-### Environment and Topology
-
-- [x] GNS3 installed and configured
-- [x] VMware virtual machines integrated with GNS3
-- [x] Four-role topology designed
-- [x] Ubuntu client added
-- [x] Ubuntu server added
-- [x] Kali attacker added
-- [x] Zeek sensor added
-- [x] Ethernet Hub used for passive traffic observation
-
-### Network Configuration
-
-- [x] `192.168.10.0/24` laboratory network configured
-- [x] Ubuntu client configured as `192.168.10.10`
-- [x] Ubuntu server configured as `192.168.10.20`
-- [x] Kali attacker configured as `192.168.10.30`
-- [x] Client/server connectivity verified
-- [x] Zeek passive monitoring interface configured
-- [x] VMware DHCP contamination identified and corrected
-- [x] Final capture restricted to the authorised laboratory subnet
-
-### Zeek Monitoring
-
-- [x] Zeek 8.0.9 installed
-- [x] Zeek executable path configured
-- [x] Passive interface `ens33` configured
-- [x] Packet visibility verified using tcpdump
-- [x] Normal traffic PCAP captured
-- [x] PCAP processed using Zeek
-- [x] Zeek protocol logs generated
-- [x] Connection fields extracted
-
-### Normal Traffic
-
-- [x] HTTP service configured
-- [x] HTTP GET requests generated
-- [x] DNS service configured
-- [x] `app.lab` DNS record created
-- [x] DNS queries generated
-- [x] SSH service configured
-- [x] SSH sessions generated
-- [x] ICMP connectivity traffic generated
-- [x] Clean normal PCAP captured
-- [x] Zeek logs inspected
-- [x] `conn_features.tsv` generated
-- [x] PCAP and log files exported to the host computer
-- [x] Experimental files uploaded to GitHub
-
-### Completed Attack and Integration Work
-
-- [x] Controlled Nmap reconnaissance
-- [x] Controlled bulk/exfiltration-like transfer
-- [x] HTTP request burst
-- [x] DNS query burst
-- [x] Separate PCAPs and Zeek logs generated
-- [x] Attack connection fields extracted
-- [x] Normal and attack traffic combined
-- [x] Zeek-to-model feature mapping completed
-- [x] 21 portable network features generated
-- [x] 41 model-ready numerical features generated
-- [x] External physical-laptop connectivity configured
-- [x] External Nmap validation completed
-- [ ] Final model testing using laboratory traffic
-- [ ] Final dashboard integration
 
 ## Current Normal-Traffic Pipeline
 
@@ -188,12 +109,10 @@ The four scenarios were:
 3. HTTP request burst
 4. DNS query burst
 
----
-
 ### Nmap Port Scan
 
-The Kali attacker at `192.168.10.30` performed a controlled Nmap scan
-against the Ubuntu server at `192.168.10.20`.
+The Kali attacker at 192.168.10.30 performed a controlled Nmap scan
+against the Ubuntu server at 192.168.10.20.
 
 <p align="center">
   <img src="screenshots/kali1.png"
@@ -214,14 +133,10 @@ destination ports on the Ubuntu server.
 
 **Figure 3. Nmap scanning behaviour observed in the Zeek connection data.**
 
----
-
 ### Bulk File Transfer
 
 A large test file was created on Kali and transferred to the Ubuntu
-server using SCP.
-
-The purpose of this test was to generate high-volume transfer traffic
+server using SCP. The purpose of this test was to generate high-volume transfer traffic
 that could later be analysed by the anomaly-detection models.
 
 <p align="center">
@@ -243,14 +158,12 @@ information showed a large amount of transferred data over SSH.
 
 **Figure 5. Bulk-transfer traffic recorded and analysed using Zeek.**
 
----
-
 ### HTTP Request Burst
 
 A repeated HTTP request test was generated from Kali against the
 web service running on the Ubuntu server.
 
-Zeek generated `http.log` and recorded repeated successful HTTP GET
+Zeek generated http.log and recorded repeated successful HTTP GET
 requests.
 
 <p align="center">
@@ -261,12 +174,10 @@ requests.
 
 **Figure 6. Repeated HTTP GET requests observed in the Zeek HTTP log.**
 
----
-
 ### DNS Query Burst
 
 A DNS service was configured on the Ubuntu server using the test
-domain `app.lab`.
+domain app.lab.
 
 The Kali attacker first confirmed that the DNS service was working
 and then generated repeated DNS queries.
@@ -279,7 +190,7 @@ and then generated repeated DNS queries.
 
 **Figure 7. DNS queries generated from the Kali attacker.**
 
-Zeek recorded the repeated DNS queries in `dns.log`.
+Zeek recorded the repeated DNS queries in dns.log.
 
 <p align="center">
   <img src="screenshots/kali7.png"
@@ -289,12 +200,10 @@ Zeek recorded the repeated DNS queries in `dns.log`.
 
 **Figure 8. Repeated DNS queries observed in the Zeek DNS log.**
 
----
-
 ## Zeek Feature Extraction
 
 For each traffic scenario, selected connection information was extracted
-from the Zeek `conn.log`.
+from the Zeek conn.log.
 
 The main raw Zeek fields were:
 
@@ -334,12 +243,10 @@ checked before being combined.
 
 **Figure 10. Verification of the raw Zeek feature files.**
 
----
-
 ## Combined Attack Dataset
 
 The four attack datasets were combined into one file and an
-`attack_type` field was added so that each record could be linked to
+attack_type field was added so that each record could be linked to
 its original traffic scenario.
 
 <p align="center">
@@ -349,8 +256,6 @@ its original traffic scenario.
 </p>
 
 **Figure 11. Attack records combined into a single dataset.**
-
----
 
 ## Normal and Attack Traffic Integration
 
@@ -386,8 +291,6 @@ The final dataset contained:
 </p>
 
 **Figure 13. Final normal and attack traffic dataset.**
-
----
 
 ## Feature Preparation for Machine Learning
 
