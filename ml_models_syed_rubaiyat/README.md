@@ -78,5 +78,19 @@ Finally, I created a dashboard-ready dataframe containing 82,332 records. It inc
 I saved the trained model as a Joblib file, the model settings as a JSON file, the evaluation results and dashboard data as CSV files, and the score-distribution graph as a PNG file. I then connected the dashboard-result CSV to my Streamlit dashboard for interactive presentation and record-level investigation.
 
 
+## 4. Deep SVDD Model
+
+This notebook implements the Deep Support Vector Data Description model for network anomaly detection. The model is trained using normal network records and learns to map normal traffic into a compact area around a central point. Records located close to this centre are treated as normal, while records located farther away receive higher anomaly scores and may be classified as anomalies.
+
+The notebook loads the normal training data, normal validation data and full test data. It checks the input dimensions and data quality before training the Deep SVDD network. After training, it calculates an anomaly score for every validation and test record based on its distance from the learned normal centre.
+
+Thresholds are calculated for 0.5-percent, 1-percent and 3-percent false-positive budgets. The 1-percent budget is used as the default operating point for the dashboard and final model comparison. Its default threshold is approximately 0.0000549.
+
+At the default operating point, Deep SVDD achieved 92.74 percent precision, 59.45 percent recall and an F1 score of approximately 0.725. Its actual false-positive rate was 5.7 percent, which represents approximately 57 false alerts per 1,000 normal records. Among One-Class SVM, LOF and Deep SVDD, Deep SVDD achieved the highest F1 score.
+
+The notebook generates a dashboard-ready CSV containing 82,332 record-level results. The output includes the record ID, actual class, Deep SVDD score, predictions at different budgets, default threshold, final status and prediction correctness. The trained model, configuration, evaluation results and score-distribution graph are also saved as technical artefacts.
+
+
+
 
 
