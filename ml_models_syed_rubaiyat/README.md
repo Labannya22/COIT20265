@@ -53,94 +53,30 @@ The models use:
 * Mixed development records for model comparison
 * The official test set for final evaluation
 
-## 4. One-Class SVM (OCSVM)
+## 4. LOF Baseline Model
 
-The One-Class SVM model was developed by **Mst Sinha Naznin**. It learns a decision boundary around normal network-traffic records. Records outside this boundary are identified as potential anomalies.
+First, I imported the required Python libraries, including NumPy, Pandas, Matplotlib, Joblib and LocalOutlierFactor from Scikit-learn. I also set a fixed random seed and defined the project folders for processed data, trained models, configuration files and reports.
 
-The model was evaluated using different false-positive budgets. Its dashboard displays the OCSVM score, threshold, prediction status, actual class and record-level details.
+Next, I loaded three processed NPZ files. The normal training dataset was used to teach the model normal network behaviour. The normal validation dataset was used to select the thresholds, and the full test dataset contained both normal and attack records for final evaluation.
 
-**Files:**
+Before training, I checked the shape of the datasets, the number of input features and whether the data contained any missing or infinite values.
 
-* `One_Class_SVM_Model.ipynb`
-* `ocsvm_dashboard_results.csv`
+I then configured Local Outlier Factor for novelty detection and fitted it using normal training records. LOF compares every network record with its nearest neighbours and calculates its local density. If a record has a significantly different density from its neighbours, it is considered unusual.
 
+After fitting the model, I generated LOF scores for the training, validation and test records. I converted the scoring direction so that a higher LOF score consistently means that the record looks more anomalous.
 
-```
+I then used the normal validation scores to calculate thresholds for 0.5-percent, 1-percent and 3-percent false-positive budgets. For the final dashboard and model comparison, I selected the 1-percent budget as the default operating point. Its threshold was approximately 1.801.
 
-## 5. Local Outlier Factor (LOF)
+For each test record, I compared its LOF score with the threshold. If the score was equal to or higher than the threshold, I assigned prediction one, meaning Anomaly. Otherwise, I assigned prediction zero, meaning Normal.
 
-The Local Outlier Factor model was developed by **Mst Sinha Naznin**. LOF compares the local density of each network record with the density of its neighbouring records. A record with a significantly different local density is considered a potential anomaly.
+After producing the predictions, I evaluated the model using Precision, Recall, F1 score, Actual FPR, false alerts per 1,000 records, ROC-AUC, PR-AUC and confusion-matrix values.
 
-The LOF dashboard presents the anomaly score, threshold, prediction status, actual class and detailed results for a selected record.
+At the default operating point, LOF achieved 93.64 percent precision, 52.27 percent recall and an F1 score of approximately 0.671. It produced approximately 43 false alerts per 1,000 normal records, which was the lowest false-alert rate among the six compared models.
 
-**Files:**
+Finally, I created a dashboard-ready dataframe containing 82,332 records. It includes the record ID, actual class, LOF score, predictions for each budget, default threshold, final status and prediction correctness.
 
-* `LOF_Baseline_Model.ipynb`
-* `lof_dashboard_results.csv`
-
-```
-
-## 6. Deep SVDD
-
-The Deep Support Vector Data Description model was developed by **Mst Sinha Naznin**. Deep SVDD learns a compact representation of normal network traffic around a central point. Records located farther from the learned normal centre receive higher anomaly scores and may be classified as anomalies.
-
-The Deep SVDD dashboard displays the anomaly score, threshold, detection status, severity and selected-record details.
-
-**Files:**
-
-* `Deep_SVDD_Model.ipynb`
-* `deep_svdd_dashboard_results.csv`
+I saved the trained model as a Joblib file, the model settings as a JSON file, the evaluation results and dashboard data as CSV files, and the score-distribution graph as a PNG file. I then connected the dashboard-result CSV to my Streamlit dashboard for interactive presentation and record-level investigation.
 
 
-```
 
-## Final Six-Model Comparison
-
-A final comparison dashboard was created to compare all six anomaly-detection approaches:
-
-1. Isolation Forest
-2. Autoencoder
-3. Hybrid IF+AE
-4. One-Class SVM
-5. Local Outlier Factor
-6. Deep SVDD
-
-The dashboard compares Precision, Recall, F1 score, Actual FPR, false alerts per 1,000 normal records, ROC-AUC, PR-AUC and confusion-matrix results.
-
-**Files:**
-
-* `Final_Model_Comparison.ipynb`
-* `final_model_ranking_1pct.csv`
-
-
-## Reproducibility
-
-The notebooks use fixed random seeds and recorded model parameters. The Isolation Forest configuration, trained model, result tables, predictions and graphs are saved as reproducible artefacts.
-
-The shared project dataset and preprocessing files must be uploaded and extracted in Google Colab before running the notebooks.
-
-## Current progress
-
-* ML environment configured
-* Model inputs and preprocessing pipeline confirmed
-* Isolation Forest model selection completed
-* Final Isolation Forest evaluation completed
-* Reproducible Isolation Forest configuration recorded
-* Dense Autoencoder notebook added
-* Hybrid Isolation Forest–Autoencoder notebook added
-
-## Next steps
-
-* Run the Dense Autoencoder notebook from a clean Colab runtime
-* Verify its training, validation and testing process
-* Record its ROC-AUC, PR-AUC, precision, recall, F1-score and false-positive rate
-* Test and validate the hybrid anomaly-scoring method
-* Compare all models using the same data partitions and evaluation measures
-* Test an OCSVM baseline using normal UNSW-NB15 traffic
-* Save the final models, configurations, tables and graphs
-* Review relevant research literature and justify the final model selection
-
-## Contributors
-
-The machine-learning work is part of the group network anomaly detection project. The notebooks were developed and organised through group collaboration, with Syed Rubaiyat Karim responsible for the Isolation Forest, Auto encoder and hybrid isolation.
 
