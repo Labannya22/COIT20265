@@ -70,7 +70,7 @@ Connection-level information was then extracted for machine-learning preprocessi
 The practical traffic followed this processing pipeline:
 
 <p align="center">
-  <img src="screenshots/gns3_feature_processing_flow.png"
+  <img src="../diagrams/gns3_feature_processing_flow.png"
        alt="GNS3 and Zeek feature-processing workflow"
        width="700">
 </p>
