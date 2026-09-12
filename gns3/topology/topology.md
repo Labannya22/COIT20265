@@ -1,6 +1,7 @@
 # Four-Role GNS3 Laboratory Topology
 
 ## 1. Final Topology
+The final laboratory contains four systems connected through a GNS3 Ethernet hub.
 
 ![Final four-role GNS3 topology](../screenshots/final_connecting_from_gns3.png)
 
@@ -16,8 +17,6 @@
 All systems are connected through **Hub1** on the isolated `192.168.10.0/24` network.
 
 During controlled experiments, no default gateway, NAT node, Cloud node or external router is used.
-
----
 
 ## 2. GNS3 and VMware Setup
 
@@ -39,43 +38,19 @@ During setup, GNS3/VMware integration problems were encountered.
 
 These issues were resolved before completing the final four-role topology.
 
----
-
 ## 3. IP Addressing and Connectivity
 
-The Ubuntu client was configured as `192.168.10.10/24`.
+The laboratory uses static addressing within the `192.168.10.0/24` subnet.
+
+The Ubuntu client was configured as:
+
+`192.168.10.10/24`
 
 ![Ubuntu client IP address](../screenshots/client_ip__addres.png)
 
 **Figure 5. Ubuntu client IP configuration.**
 
-Connectivity between the Ubuntu client and Ubuntu server was successfully verified.
+Connectivity between the Ubuntu client and Ubuntu server was verified using ICMP.
 
 ![Client-to-server connectivity](../screenshots/pinging_client_to_server.png)
-
 **Figure 6. Successful client-to-server connectivity.**
-
-Additional ICMP testing evidence:
-
-![Additional ICMP test](../screenshots/ping_sending_from%20client.png)
-
-**Figure 7. Additional ICMP connectivity test.**
-
----
-
-## 4. Normal Traffic Generation
-
-### HTTP
-
-The Ubuntu server provided a Python HTTP service on TCP port 80.
-
-![HTTP server configuration](../screenshots/server_cofig_for_normaldata.png)
-
-**Figure 8. HTTP service running on the Ubuntu server.**
-
-### DNS
-
-`dnsmasq` was configured with the local DNS record:
-
-```text
-app.lab → 192.168.10.20
