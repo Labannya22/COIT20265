@@ -1,0 +1,15 @@
+attack,selected_test_records,full_source_records
+DDOS attack-HOIC,143262,1080858
+DoS attacks-Hulk,57663,432648
+DDoS attacks-LOIC-HTTP,40559,307300
+Bot,19351,143097
+Infilteration,15616,116356
+SSH-Bruteforce,12514,94979
+DoS attacks-GoldenEye,3666,27723
+FTP-BruteForce,3447,25933
+DoS attacks-SlowHTTPTest,1941,14116
+DoS attacks-Slowloris,1262,9512
+DDOS attack-LOIC-UDP,293,2112
+Brute Force -Web,262,2143
+Brute Force -XSS,113,927
+SQL Injection,51,432
