@@ -69,7 +69,7 @@ The workflow requires:
 
 The notebook should be run from top to bottom using the fixed seed. Processing is complete when the final section reports:
 
-# text
+- text
 ALL FINAL CHECKS PASSED
 Limitations
 
