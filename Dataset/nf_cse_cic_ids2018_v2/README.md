@@ -71,3 +71,14 @@ The notebook should be run from top to bottom using the fixed seed. Processing i
 
 # text
 ALL FINAL CHECKS PASSED
+Limitations
+
+Duplicate detection is performed within individual chunks rather than globally across the complete CSV. Service and connection-state values are approximated because NF-CSE and UNSW-NB15 use different schemas. Recent-connection statistics are calculated over the previous 100 sampled flows rather than the complete unsampled stream. The selected attack sample also reflects the dataset’s original imbalance, with some attack categories having substantially more records than others.
+
+# Individual Contribution
+
+Following the team’s feature-alignment update, Syed Rubaiyat Karim configured the revised workflow in Google Colab, verified the required dataset and preprocessing dependencies, executed the complete processing pipeline, checked the generated 21-feature and 41-feature representations, and prepared the resulting technical evidence for GitHub and Microsoft Teams.
+
+# Colab Notebook
+
+Open the NF-CSE-CIC-IDS2018-v2 preprocessing notebook
