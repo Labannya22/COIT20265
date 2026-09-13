@@ -81,4 +81,6 @@ Following the team’s feature-alignment update, Syed Rubaiyat Karim configured 
 
 # Colab Notebook
 
-Open the NF-CSE-CIC-IDS2018-v2 preprocessing notebook
+## Colab Notebook
+
+[Open the NF-CSE-CIC-IDS2018-v2 Preprocessing Notebook](https://colab.research.google.com/drive/1N-SOe23ULur_bL8Vk-9FWxY-bgB762IT)
