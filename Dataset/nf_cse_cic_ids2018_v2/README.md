@@ -49,7 +49,7 @@ The final matrix passed shape, label-count, feature-order and finite-value check
 
 The repository contains:
 
-- `NF_CSE_CIC_IDS2018_v2_Preprocessing.ipynb` — complete preprocessing and verification notebook
+- `NF_CSE_CIC_IDS2018_v2_Preprocessing_complete.ipynb` — complete preprocessing and verification notebook
 - `processing_summary.json` — machine-readable processing summary
 - `attack_distribution.csv` — selected and source attack-category counts
 - `feature_order_41.json` — required order of the final 41 model features
