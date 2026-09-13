@@ -93,7 +93,7 @@ The scan was performed only against the authorised project server.
 The traffic path was:
 
 <p align="center">
-  <img src="../diagrams/external_diagram.png"
+  <img src="../../diagrams/external_diagram.png"
        alt="External physical-laptop validation network flow"
        width="650">
 </p>
