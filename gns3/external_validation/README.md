@@ -84,15 +84,6 @@ The Windows host was also able to communicate successfully with the Ubuntu Serve
 
 **Figure 4. Successful connectivity test to the Ubuntu Server.**
 
-
-## External Kali Connectivity
-
-After the routing configuration was completed, the Kali machine running on Labannya's separate laptop was able to communicate with the Ubuntu Server.
-
-The external Kali address was: 192.168.4.52
-The target Ubuntu Server was: 192.168.10.20
-A ping test was used first to confirm that the connection was working before performing the controlled Nmap test.
-
 ## Controlled External Nmap Scan
 
 After connectivity was confirmed, a controlled Nmap scan was performed from Labannya's Kali machine against the Ubuntu Server.
@@ -101,28 +92,13 @@ The scan was performed only against the authorised project server.
 
 The traffic path was:
 
-```text
-Labannya's Physical Laptop
-        |
-        v
-Kali Linux
-192.168.4.52
-        |
-        v
-Private Wi-Fi Network
-        |
-        v
-Arjita's Windows Host
-192.168.4.47
-        |
-        v
-VMnet4 / Routing
-192.168.10.1
-        |
-        v
-Ubuntu Server
-192.168.10.20
-```
+<p align="center">
+  <img src="../diagrams/external_diagram.png"
+       alt="External physical-laptop validation network flow"
+       width="650">
+</p>
+
+**Figure 5. External physical-laptop traffic path from Kali Linux to the Ubuntu Server through the private Wi-Fi network and host routing.**
 
 The purpose of this test was to generate reconnaissance traffic from a completely separate physical computer.
 
