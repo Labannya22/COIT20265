@@ -1,69 +1,73 @@
-# NF-CSE-CIC-IDS2018-v2 Processing
+# NF-CSE-CIC-IDS2018-v2 Preprocessing
 
-## Why We Used NF-CSE-CIC-IDS2018-v2
+## Purpose
 
-NF-CSE-CIC-IDS2018-v2 provides a second and different source of labelled network traffic. This helps the group investigate whether the intrusion-detection approach can generalise beyond UNSW-NB15. It is also suitable because it represents both normal and attack traffic using detailed NetFlow attributes. Using a second dataset produces stronger evidence than evaluating the project on only one traffic environment.
+NF-CSE-CIC-IDS2018-v2 was selected as a second network-security dataset to evaluate whether the project’s anomaly-detection system can generalise beyond UNSW-NB15. The processed NF-CSE data is intended for cross-dataset testing only. No model was trained and no new scaler was fitted using NF-CSE records.
 
-## Dataset Understanding
+## Dataset Overview
 
-The original CSV is approximately 3 GB and contains 18,893,708 network-flow records. Each row represents a network flow. Its columns describe properties such as source and destination ports, protocol, packet counts, transferred bytes, flow duration, TCP flags and other traffic statistics. The dataset also contains a binary label identifying normal or attack traffic and an attack-name field.
+The original CSV is approximately 3 GB and contains 18,893,708 network-flow records with 45 columns. Each row represents a network flow described through attributes such as protocol, ports, transferred bytes, packet counts, flow duration and TCP flags. The dataset also provides a binary label distinguishing normal and attack traffic and an attack-category field.
 
-The key technical challenge was its size. Loading the complete file into Colab memory could cause the runtime to disconnect. Therefore, I processed it in chunks of 200,000 rows, allowing every row to be inspected while controlling memory usage.
+## Processing Method
 
-## Technical Artefact
+Because loading the complete dataset into Colab memory could cause runtime disconnection, the CSV was streamed in chunks of 200,000 records. Column names were standardised, positive and negative infinite values were converted to missing values, duplicate records were removed within each chunk, and invalid or non-numeric labels were excluded.
 
-My second-dataset artefact consists of:
+A fixed random seed of 42 was used to create a reproducible bounded sample containing 400,000 normal and 300,000 attack records. Attack sampling was stratified by attack category to retain representation of the available attack types.
 
-A reproducible Google Colab preprocessing notebook
+Source and destination IP addresses were used temporarily when calculating connection-based attributes but were excluded from the final model matrix. The `Label` and `Attack` fields were also excluded from the input features to prevent target leakage.
 
-train_normal.npz — normal-only training data
+## Feature Alignment
 
-val_normal.npz — separate normal calibration data
+The NF-CSE schema differs from the UNSW-NB15 schema used by the existing project models. Therefore, compatible traffic attributes were mapped into 21 portable features covering duration, packets, bytes, rates, loads, mean packet sizes, protocol, service, connection state and recent-connection statistics.
 
-test_full.npz — labelled normal and attack testing data
+Protocol values were mapped into common categories such as TCP, UDP and other. Services were approximated using known source and destination ports, while connection states were inferred from protocol and TCP-flag information. Seven recent-connection attributes were calculated using a rolling window of the previous 100 sampled flows.
 
-feature_order.json — the required order of the 40 input features
+The previously fitted UNSW preprocessing pipeline was reused to encode and transform the 21 portable attributes into the exact 41-feature representation required by the existing models. Reusing the UNSW preprocessor avoids fitting transformations on the NF-CSE test dataset and reduces cross-dataset information leakage.
 
-robust_scaler.joblib — the fitted preprocessing scaler
+## Validation Results
 
-processing_summary.json — evidence of the completed processing
+The final processing workflow produced:
 
-A compressed preprocessing evidence package
+| Technical attribute | Result |
+|---|---:|
+| Raw records inspected | 18,893,708 |
+| Duplicates removed within chunks | 5 |
+| Selected normal records | 400,000 |
+| Selected attack records | 300,000 |
+| Total selected records | 700,000 |
+| Portable features | 21 |
+| Final model features | 41 |
+| Missing values | 0 |
+| Infinite values | 0 |
+| Random seed | 42 |
+| Model training on NF-CSE | No |
+| New scaler fitted on NF-CSE | No |
 
-Collab: https://colab.research.google.com/drive/1liS4vvLZYAE7W5zO26g8spefoiVhItKN?usp=sharing
+The final matrix passed shape, label-count, feature-order and finite-value checks before being saved.
 
-## Processing Method and Technical Attributes
-The complete CSV was streamed in chunks instead of loading all 18.9 million rows into memory.
-Column names were standardised, and the binary label field was checked.
-Positive and negative infinite values were replaced with missing values.
-Duplicate records were detected and removed within each chunk.
-Records containing invalid labels were excluded.
-A reproducible sample of 400,000 normal and 300,000 attack records was retained using a fixed random seed.
-Source and destination IP addresses were removed because they are identifiers.
-The Label and Attack columns were excluded from model inputs to prevent target leakage.
-The remaining columns were converted to numeric values, while unusable and constant columns were removed, leaving 40 features.
-Normal traffic was divided into training, calibration and testing subsets.
-Missing-value replacements and clipping limits were calculated using only the normal training data.
+## Technical Artefacts
 
+The repository contains:
 
-A RobustScaler was fitted only on the normal training records and then applied to the remaining datasets.
-Finally, all outputs were checked to confirm that no invalid or infinite values remained before they were saved.
+- `NF_CSE_CIC_IDS2018_v2_Preprocessing.ipynb` — complete preprocessing and verification notebook
+- `processing_summary.json` — machine-readable processing summary
+- `attack_distribution.csv` — selected and source attack-category counts
+- `feature_order_41.json` — required order of the final 41 model features
+- `nf_cse_41_preview.csv` — small preview of the transformed model matrix
+- `nf_cse_selected_attack_distribution.png` — visualisation of selected attack categories
 
-## Evidence of Deep Technical Understanding
+The original 3 GB CSV is not stored in GitHub because of its size. The complete processed matrix is retained in the project’s approved Google Drive or Microsoft Teams storage when it exceeds GitHub’s file-size limit.
 
-### Preventing data leakage
+## Reproducibility
 
-The IP addresses were removed because a model could memorise particular devices or networks instead of learning meaningful traffic behaviour. The label and attack name were excluded because they directly reveal the expected answer. I also fitted the scaler and calculated clipping limits from the normal training data only. Using test or attack data for these calculations would leak information into the preparation stage and make the evaluation less reliable.
+The workflow requires:
 
-### Reason for normal-only training
+1. `NF-CSE-CIC-IDS2018-v2.csv`
+2. The fitted UNSW `preprocessor.joblib`
+3. The corresponding UNSW `feature_order.json`
+4. Python packages including pandas, NumPy, scikit-learn, joblib and Matplotlib
 
-The anomaly-detection approach is designed to learn normal behaviour and assign higher anomaly scores to traffic that differs from it. Therefore, the training set contains only normal records. A separate normal calibration set supports threshold selection without using the final test set.
+The notebook should be run from top to bottom using the fixed seed. Processing is complete when the final section reports:
 
-### Reason for RobustScaler and clipping
-
-Network-flow values such as byte counts and durations can contain very large outliers. Quantile clipping limits the effect of extreme values, while RobustScaler uses robust statistics and is less sensitive to large outliers than ordinary standardisation. The same fitted transformation is then applied consistently to every dataset.
-
-### Reproducibility and model compatibility
-
-A fixed random seed makes the retained sample and data split reproducible. The feature-order file ensures that every team member supplies the same 40 variables to the models in the same order. The fitted scaler allows the exact preprocessing transformation to be reused rather than estimated again.
-
+# text
+ALL FINAL CHECKS PASSED
