@@ -4,15 +4,12 @@
 
 This Streamlit dashboard presents the outputs of an explainable, false-positive-aware hybrid network anomaly detection system. It displays Isolation Forest, Autoencoder and combined Hybrid results with threshold-based severity, model agreement, filtering and record-level explanations.
 
-## Dashboard Files
+## Dashboard picture
+1. **Isolation Forest**
+   
 
-* `app_mock.py` — Initial dashboard using synthetic mock alerts.
-* `app_isolation_forest.py` — Isolation Forest results, threshold decisions and explanations.
-* `app_autoencoder.py` — Autoencoder reconstruction errors and top abnormal features.
-* `app_hybrid.py` — Combined Isolation Forest and Autoencoder results.
-* `app_hybrid_sqlite.py` — Final Hybrid dashboard loading alert records from SQLite.
-* `database.py` — Creates the SQLite database from the Hybrid model-output CSV.
-* `alerts.db` — Local SQLite database containing the `hybrid_alerts` table
+
+
 
 ## Model-Output Files
 
