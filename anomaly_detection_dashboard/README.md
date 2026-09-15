@@ -20,12 +20,12 @@ This Streamlit dashboard presents the outputs of an explainable, false-positive-
 
 2. ### Nf CSE Final Testing Dashboard
 
-![Nf_CSE_Final_Testing_Dashboard](Nf_CSE_Final_Testing_Dashboard)
+![Nf_CSE_Final_Testing_Dashboard](Nf_CSE_Final_Testing_Dashboard.png)
 
 
 2. ### UNSW Final Testing Dashboard
 
-![ UNSW Final Testing Dashboard]( UNSW_Final_Testing_Dashboard)
+![ UNSW Final Testing Dashboard]( UNSW_Final_Testing_Dashboard.png)
    
 
 
