@@ -10,7 +10,7 @@ This Streamlit dashboard presents the outputs of an explainable, false-positive-
 
 2. ### Dense Autoencoder Dashboard
 
-![Dense Autoencoder Dashboard](autoencoder_dashboard.png)
+![Dense Autoencoder Dashboard](autoencoder-1.png)
    
 
 
