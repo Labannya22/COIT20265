@@ -18,14 +18,14 @@ This Streamlit dashboard presents the outputs of an explainable, false-positive-
 ![Final Comparison dashboard](Final_Comparison_dashboard1.png)
 
 
-2. ### Dense Autoencoder Dashboard
+2. ### Nf CSE Final Testing Dashboard
 
-![Dense Autoencoder Dashboard](autoencoder-1.png)
+![Nf_CSE_Final_Testing_Dashboard](Nf_CSE_Final_Testing_Dashboard)
 
 
-2. ### Dense Autoencoder Dashboard
+2. ### UNSW Final Testing Dashboard
 
-![Dense Autoencoder Dashboard](autoencoder-1.png)
+![ UNSW Final Testing Dashboard]( UNSW_Final_Testing_Dashboard)
    
 
 
