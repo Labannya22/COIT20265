@@ -6,7 +6,7 @@ This Streamlit dashboard presents the outputs of an explainable, false-positive-
 
 ## Dashboard picture
 1. **Isolation Forest**
-   ![Isolation Forest Dashboard](isolation_forest_dashboard.png)
+   ![Isolation Forest Dashboard](Isolation_forest_dashboard.png)
    
 
 
