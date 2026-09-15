@@ -25,7 +25,7 @@ This Streamlit dashboard presents the outputs of an explainable, false-positive-
 
 2. ### UNSW Final Testing Dashboard
 
-![ UNSW Final Testing Dashboard]( UNSW_Final_Testing_result_Dashboard.png)
+![ UNSW Final Testing Dashboard]( UNSW_Final_Testing_Result_Dashboard.png)
    
 
 
