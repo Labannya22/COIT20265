@@ -7,6 +7,10 @@ This Streamlit dashboard presents the outputs of an explainable, false-positive-
 ## Dashboard picture
 1. **Isolation Forest**
    ![Isolation Forest Dashboard](Isolation_forest_dashboard.png)
+
+2. ### Dense Autoencoder Dashboard
+
+![Dense Autoencoder Dashboard](autoencoder_dashboard.png)
    
 
 
